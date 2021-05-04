@@ -17,6 +17,9 @@
 ENV['RACK_ENV'] = 'test'
 
 RSpec.configure do |config|
+  #Filter gem code from backtrace so it doesn't obscure application code
+  config.filter_gems_from_backtrace 'rack', 'rack-test', 'sequel', 'sinatra'
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
@@ -67,7 +70,7 @@ RSpec.configure do |config|
   #   - http://rspec.info/blog/2012/06/rspecs-new-expectation-syntax/
   #   - http://www.teaisaweso.me/blog/2013/05/27/rspecs-new-message-expectation-syntax/
   #   - http://rspec.info/blog/2014/05/notable-changes-in-rspec-3/#zero-monkey-patching-mode
-  #config.disable_monkey_patching!
+  config.disable_monkey_patching!
 
   # This setting enables warnings. It's recommended, but in some cases may
   # be too noisy due to issues in dependencies.
@@ -86,8 +89,6 @@ RSpec.configure do |config|
   # Print the 10 slowest examples and example groups at the
   # end of the spec run, to help surface which specs are running
   # particularly slow.
-  #config.profile_examples = 10
-
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
@@ -98,5 +99,5 @@ RSpec.configure do |config|
   # Setting this allows you to use `--seed` to deterministically reproduce
   # test failures related to randomization by passing the same `--seed` value
   # as the one that triggered the failure.
-  #Kernel.srand config.seed
+  Kernel.srand config.seed
 end
